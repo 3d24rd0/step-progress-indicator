@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import '../lib/step_progress_indicator.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class VerticalBar extends StatelessWidget {
+  const VerticalBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(
-          bottom: 24.0,
-          top: 60.0,
+          bottom: 24,
+          top: 60,
         ),
         child: Column(
           children: <Widget>[
@@ -16,25 +18,25 @@ class VerticalBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  StepProgressIndicator(
+                  const StepProgressIndicator(
                     totalSteps: 10,
                     direction: Axis.vertical,
                     currentStep: 2,
                   ),
-                  StepProgressIndicator(
+                  const StepProgressIndicator(
                     totalSteps: 20,
                     direction: Axis.vertical,
                     currentStep: 2,
                     selectedColor: Colors.amber,
                     unselectedColor: Colors.black12,
-                    size: 10.0,
+                    size: 10,
                   ),
-                  StepProgressIndicator(
+                  const StepProgressIndicator(
                     totalSteps: 8,
                     direction: Axis.vertical,
                     currentStep: 2,
                     roundedEdges: Radius.circular(12),
-                    size: 10.0,
+                    size: 10,
                     gradientColor: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -53,8 +55,8 @@ class VerticalBar extends StatelessWidget {
                   StepProgressIndicator(
                     totalSteps: 10,
                     direction: Axis.vertical,
-                    padding: 6.0,
-                    size: 30.0,
+                    padding: 6,
+                    size: 30,
                     customColor: (index) => Colors.lightBlue,
                     customStep: (index, color, _) => Container(
                       color: color,
@@ -65,8 +67,8 @@ class VerticalBar extends StatelessWidget {
                   StepProgressIndicator(
                     totalSteps: 20,
                     direction: Axis.vertical,
-                    padding: 3.0,
-                    size: 40.0,
+                    padding: 3,
+                    size: 40,
                     progressDirection: TextDirection.rtl,
                     customColor: (index) => Colors.lightGreen,
                     customStep: (index, color, _) => Container(
@@ -75,7 +77,7 @@ class VerticalBar extends StatelessWidget {
                       child: Text('$index'),
                     ),
                   ),
-                  StepProgressIndicator(
+                  const StepProgressIndicator(
                     totalSteps: 100,
                     direction: Axis.vertical,
                     currentStep: 87,
@@ -83,19 +85,19 @@ class VerticalBar extends StatelessWidget {
                     selectedColor: Colors.redAccent,
                     unselectedColor: Colors.black12,
                     progressDirection: TextDirection.rtl,
-                    selectedSize: 10.0,
+                    selectedSize: 10,
                     roundedEdges: Radius.elliptical(6, 30),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 24.0,
+            const SizedBox(
+              height: 24,
             ),
-            Text(
+            const Text(
               'https//www.sandromaglione.com',
               style: TextStyle(
-                fontSize: 15.0,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 1.2,
                 color: Colors.black87,

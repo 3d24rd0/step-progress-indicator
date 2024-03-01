@@ -12,6 +12,45 @@ import 'package:flutter/material.dart';
 /// Check out the official tutorial on
 /// https://www.sandromaglione.com/blog
 class StepProgressIndicator extends StatelessWidget {
+  const StepProgressIndicator({
+    required this.totalSteps,
+    this.customStep,
+    this.onTap,
+    this.customColor,
+    this.customSize,
+    this.selectedSize,
+    this.unselectedSize,
+    this.roundedEdges,
+    this.gradientColor,
+    this.selectedGradientColor,
+    this.unselectedGradientColor,
+    this.blendMode,
+    this.direction = Axis.horizontal,
+    this.progressDirection = TextDirection.ltr,
+    this.size = 4.0,
+    this.currentStep = 0,
+    this.selectedColor = Colors.blue,
+    this.unselectedColor = Colors.grey,
+    this.padding = 2.0,
+    this.fallbackLength = 100.0,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.stepMainAxisAlignment = MainAxisAlignment.center,
+    this.stepCrossAxisAlignment = CrossAxisAlignment.center,
+    super.key,
+  })  : assert(
+          totalSteps > 0,
+          "Number of total steps (totalSteps) of the StepProgressIndicator must be greater than 0",
+        ),
+        assert(
+          currentStep >= 0,
+          "Current step (currentStep) of the StepProgressIndicator must be greater than or equal to 0",
+        ),
+        assert(
+          padding >= 0.0,
+          "Padding (padding) of the StepProgressIndicator must be greater or equal to 0",
+        );
+
   /// Defines a custom [Widget] to display at each step instead of a simple container,
   /// given the current step index, the [Color] of the step, which
   /// could be defined with [selectedColor] and [unselectedColor] or
@@ -193,40 +232,6 @@ class StepProgressIndicator extends StatelessWidget {
   /// **NOTE**: if not provided it defaults to [CrossAxisAlignment.center]
   final CrossAxisAlignment stepCrossAxisAlignment;
 
-  const StepProgressIndicator({
-    required this.totalSteps,
-    this.customStep,
-    this.onTap,
-    this.customColor,
-    this.customSize,
-    this.selectedSize,
-    this.unselectedSize,
-    this.roundedEdges,
-    this.gradientColor,
-    this.selectedGradientColor,
-    this.unselectedGradientColor,
-    this.blendMode,
-    this.direction = Axis.horizontal,
-    this.progressDirection = TextDirection.ltr,
-    this.size = 4.0,
-    this.currentStep = 0,
-    this.selectedColor = Colors.blue,
-    this.unselectedColor = Colors.grey,
-    this.padding = 2.0,
-    this.fallbackLength = 100.0,
-    this.mainAxisAlignment = MainAxisAlignment.center,
-    this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.stepMainAxisAlignment = MainAxisAlignment.center,
-    this.stepCrossAxisAlignment = CrossAxisAlignment.center,
-    Key? key,
-  })  : assert(totalSteps > 0,
-            "Number of total steps (totalSteps) of the StepProgressIndicator must be greater than 0"),
-        assert(currentStep >= 0,
-            "Current step (currentStep) of the StepProgressIndicator must be greater than or equal to 0"),
-        assert(padding >= 0.0,
-            "Padding (padding) of the StepProgressIndicator must be greater or equal to 0"),
-        super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -267,7 +272,9 @@ class StepProgressIndicator extends StatelessWidget {
   /// Apply a [Row] when the [direction] of the indicator is [Axis.horizontal],
   /// or a [Column] otherwise ([Axis.vertical])
   Widget _applyWidgetDirection(
-      List<Widget> Function(double) children, BoxConstraints constraits) {
+    List<Widget> Function(double) children,
+    BoxConstraints constraits,
+  ) {
     if (direction == Axis.horizontal) {
       // If horizontal indicator, then use a Row
       return Row(
@@ -508,9 +515,8 @@ class StepProgressIndicator extends StatelessWidget {
         color: stepColor,
         width: isHorizontal ? stepLength : stepSize,
         height: !isHorizontal ? stepLength : stepSize,
-        customStep:
-            customStep != null ? customStep!(step, stepColor, stepSize) : null,
-        onTap: onTap != null ? onTap!(step) : null,
+        customStep: customStep?.call(step, stepColor, stepSize),
+        onTap: onTap?.call(step),
         isFirstStep: step == 0,
         isLastStep: step == totalSteps - 1,
         roundedEdges: roundedEdges,
@@ -555,20 +561,6 @@ class StepProgressIndicator extends StatelessWidget {
 
 /// Single step of the indicator
 class _ProgressStep extends StatelessWidget {
-  final Axis direction;
-  final double width;
-  final double height;
-  final Color color;
-  final double padding;
-  final Widget? customStep;
-  final void Function()? onTap;
-  final bool isFirstStep;
-  final bool isLastStep;
-  final bool isOnlyOneStep;
-  final Radius? roundedEdges;
-  final MainAxisAlignment mainAxisAlignment;
-  final CrossAxisAlignment crossAxisAlignment;
-
   const _ProgressStep({
     required this.direction,
     required this.color,
@@ -583,8 +575,21 @@ class _ProgressStep extends StatelessWidget {
     this.isLastStep = false,
     this.isOnlyOneStep = false,
     this.roundedEdges,
-    Key? key,
-  }) : super(key: key);
+    // super.key,
+  });
+  final Axis direction;
+  final double width;
+  final double height;
+  final Color color;
+  final double padding;
+  final Widget? customStep;
+  final void Function()? onTap;
+  final bool isFirstStep;
+  final bool isLastStep;
+  final bool isOnlyOneStep;
+  final Radius? roundedEdges;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {

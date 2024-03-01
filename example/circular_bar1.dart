@@ -3,13 +3,15 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'dart:math' as math;
 
 class CircularBar1 extends StatelessWidget {
+  const CircularBar1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 24.0,
-          vertical: 24.0,
+          horizontal: 24,
+          vertical: 24,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -35,22 +37,22 @@ class CircularBar1 extends StatelessWidget {
                           currentStep: 6,
                           selectedColor: Colors.redAccent,
                           unselectedColor: Colors.grey[200],
-                          selectedStepSize: 10.0,
+                          selectedStepSize: 10,
                           width: 100,
-                          gradientColor: LinearGradient(
+                          gradientColor: const LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [Colors.cyan, Colors.orangeAccent],
                           ),
                         ),
-                        CircularStepProgressIndicator(
+                        const CircularStepProgressIndicator(
                           totalSteps: 20,
                           currentStep: 6,
                           padding: math.pi / 15,
                           selectedColor: Colors.cyan,
                           unselectedColor: Colors.yellowAccent,
-                          selectedStepSize: 3.0,
-                          unselectedStepSize: 9.0,
+                          selectedStepSize: 3,
+                          unselectedStepSize: 9,
                           width: 100,
                         ),
                       ],
@@ -69,7 +71,7 @@ class CircularBar1 extends StatelessWidget {
                           height: 150,
                           startingAngle: -math.pi * 2 / 3,
                           arcSize: math.pi * 2 / 3 * 2,
-                          gradientColor: LinearGradient(
+                          gradientColor: const LinearGradient(
                             colors: [Colors.red, Colors.purple],
                           ),
                         ),
@@ -87,7 +89,7 @@ class CircularBar1 extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         CircularStepProgressIndicator(
@@ -169,10 +171,10 @@ class CircularBar1 extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
+            const Text(
               'https//www.sandromaglione.com',
               style: TextStyle(
-                fontSize: 15.0,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 1.2,
                 color: Colors.black87,

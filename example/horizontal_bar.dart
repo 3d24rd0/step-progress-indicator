@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import '../lib/step_progress_indicator.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 /// Examples of step_progress_indicators, direction [Axis.horizontal]
 class HorizontalBar extends StatelessWidget {
+  const HorizontalBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 24.0,
-          vertical: 24.0,
+          horizontal: 24,
+          vertical: 24,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -21,23 +23,23 @@ class HorizontalBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    StepProgressIndicator(
+                    const StepProgressIndicator(
                       totalSteps: 10,
                     ),
-                    StepProgressIndicator(
+                    const StepProgressIndicator(
                       totalSteps: 10,
                       currentStep: 6,
                       selectedColor: Colors.red,
                       unselectedColor: Colors.yellow,
                     ),
-                    StepProgressIndicator(
+                    const StepProgressIndicator(
                       totalSteps: 20,
                       currentStep: 6,
                       size: 10,
                       selectedColor: Colors.purple,
                       unselectedColor: Colors.transparent,
                     ),
-                    StepProgressIndicator(
+                    const StepProgressIndicator(
                       totalSteps: 15,
                       currentStep: 12,
                       size: 20,
@@ -50,7 +52,7 @@ class HorizontalBar extends StatelessWidget {
                         colors: [Colors.orange, Colors.white],
                       ),
                     ),
-                    StepProgressIndicator(
+                    const StepProgressIndicator(
                       totalSteps: 100,
                       currentStep: 32,
                       size: 8,
@@ -69,10 +71,10 @@ class HorizontalBar extends StatelessWidget {
                         colors: [Colors.black, Colors.blue],
                       ),
                     ),
-                    StepProgressIndicator(
+                    const StepProgressIndicator(
                       totalSteps: 12,
                       currentStep: 4,
-                      padding: 6.0,
+                      padding: 6,
                       size: 12,
                       progressDirection: TextDirection.rtl,
                       selectedColor: Colors.green,
@@ -90,7 +92,7 @@ class HorizontalBar extends StatelessWidget {
                     ),
                     StepProgressIndicator(
                       totalSteps: 5,
-                      padding: 20.0,
+                      padding: 20,
                       size: 20,
                       customColor: (index) => index == 0
                           ? Colors.redAccent
@@ -105,16 +107,16 @@ class HorizontalBar extends StatelessWidget {
                       selectedColor: Colors.black,
                       unselectedColor: Colors.lightBlue,
                       customStep: (index, color, _) => color == Colors.black
-                          ? Container(
+                          ? ColoredBox(
                               color: color,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.check,
                                 color: Colors.white,
                               ),
                             )
-                          : Container(
+                          : ColoredBox(
                               color: color,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.remove,
                               ),
                             ),
@@ -130,10 +132,10 @@ class HorizontalBar extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
+            const Text(
               'https//www.sandromaglione.com',
               style: TextStyle(
-                fontSize: 15.0,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 1.2,
                 color: Colors.black87,
