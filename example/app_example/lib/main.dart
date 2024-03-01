@@ -6,7 +6,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,111 +18,113 @@ class MyApp extends StatelessWidget {
 }
 
 class GradientRoundedEdge extends StatelessWidget {
-  const GradientRoundedEdge({Key? key}) : super(key: key);
+  const GradientRoundedEdge({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: Column(
-          children: [
-            Container(
-              color: Colors.grey[600],
-              padding: const EdgeInsets.all(10),
-              child: const StepProgressIndicator(
-                totalSteps: 100,
-                currentStep: 40,
-                size: 30,
-                padding: 0,
-                roundedEdges: Radius.circular(100), // Needed
-                selectedGradientColor: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0XFFFFE2CD),
-                    Color(0XFFFEC2E7),
-                    Color(0XFFC9E7FF),
-                    Color(0XFF86FEF4),
-                  ],
+        child: Padding(
+          padding: const EdgeInsets.all(50),
+          child: Column(
+            children: [
+              Container(
+                color: Colors.grey[600],
+                padding: const EdgeInsets.all(10),
+                child: const StepProgressIndicator(
+                  totalSteps: 100,
+                  currentStep: 40,
+                  size: 30,
+                  padding: 0,
+                  roundedEdges: Radius.circular(100), // Needed
+                  selectedGradientColor: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0XFFFFE2CD),
+                      Color(0XFFFEC2E7),
+                      Color(0XFFC9E7FF),
+                      Color(0XFF86FEF4),
+                    ],
+                  ),
+                  unselectedGradientColor: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0XFF171C21),
+                      Colors.black,
+                    ],
+                  ), // Needed
                 ),
-                unselectedGradientColor: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0XFF171C21),
-                    Colors.black,
-                  ],
-                ), // Needed
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
 
 class WithLabelSizedIndicator extends StatelessWidget {
-  const WithLabelSizedIndicator({Key? key}) : super(key: key);
+  const WithLabelSizedIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: Column(
-          children: [
-            // With custom step
-            StepProgressIndicator(
-              totalSteps: 20,
-              currentStep: 4,
-              size: 30,
-              customStep: (index, _, __) => Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 2),
-                ),
-                child: Column(
-                  children: [
-                    Text('$index'),
-                    Container(
-                      height: 10,
-                      color: Colors.yellow,
-                    )
-                  ],
+        child: Padding(
+          padding: const EdgeInsets.all(50),
+          child: Column(
+            children: [
+              // With custom step
+              StepProgressIndicator(
+                totalSteps: 20,
+                currentStep: 4,
+                size: 30,
+                customStep: (index, _, __) => DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 2),
+                  ),
+                  child: Column(
+                    children: [
+                      Text('$index'),
+                      Container(
+                        height: 10,
+                        color: Colors.yellow,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-            // Spacing
-            const SizedBox(height: 30),
+              // Spacing
+              const SizedBox(height: 30),
 
-            // With double indicator
-            Column(
-              children: [
-                StepProgressIndicator(
-                  totalSteps: 20,
-                  currentStep: 4,
-                  size: 20,
-                  customStep: (index, _, __) => Text('$index'),
-                ),
-                const StepProgressIndicator(
-                  totalSteps: 20,
-                  currentStep: 4,
-                ),
-              ],
-            ),
-          ],
+              // With double indicator
+              Column(
+                children: [
+                  StepProgressIndicator(
+                    totalSteps: 20,
+                    currentStep: 4,
+                    size: 20,
+                    customStep: (index, _, __) => Text('$index'),
+                  ),
+                  const StepProgressIndicator(
+                    totalSteps: 20,
+                    currentStep: 4,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
 
 class ScrollContainerSize extends StatelessWidget {
-  const ScrollContainerSize({Key? key}) : super(key: key);
+  const ScrollContainerSize({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +148,7 @@ class ScrollContainerSize extends StatelessWidget {
 }
 
 class FixedContainerSize extends StatelessWidget {
-  const FixedContainerSize({Key? key}) : super(key: key);
+  const FixedContainerSize({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -168,11 +170,11 @@ class FixedContainerSize extends StatelessWidget {
 }
 
 class Box extends StatelessWidget {
-  final double height;
   const Box({
-    Key? key,
     required this.height,
-  }) : super(key: key);
+    super.key,
+  });
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -192,8 +194,8 @@ class Box extends StatelessWidget {
 
 class Indicator extends StatelessWidget {
   const Indicator({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
