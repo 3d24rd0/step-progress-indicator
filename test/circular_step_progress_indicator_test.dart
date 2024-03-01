@@ -3,15 +3,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 void main() {
-  final int tTotalSteps = 10;
+  const int tTotalSteps = 10;
 
-  final double tWidth = 200;
-  final double tHeight = 200;
+  const double tWidth = 200;
+  const double tHeight = 200;
 
   testWidgets('should build the Container containing the circular indicator',
       (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: CircularStepProgressIndicator(
           totalSteps: tTotalSteps,
         ),
@@ -30,7 +30,7 @@ void main() {
       'should build a Container of the correct specified size (height and width)',
       (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Column(
           children: <Widget>[
             CircularStepProgressIndicator(
@@ -47,7 +47,7 @@ void main() {
 
     expect(
       container.evaluate().first.size,
-      Size(tWidth, tHeight),
+      const Size(tWidth, tHeight),
     );
   });
 
@@ -55,7 +55,7 @@ void main() {
       'should build a Container of the correct specified size (fallbackHeight)',
       (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Column(
           children: <Widget>[
             CircularStepProgressIndicator(
@@ -80,7 +80,7 @@ void main() {
       'should build a Container of the correct specified size (fallBackWidth)',
       (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Row(
           children: <Widget>[
             CircularStepProgressIndicator(
@@ -104,7 +104,7 @@ void main() {
   testWidgets('should build the child Widget given inside the indicator',
       (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Row(
           children: <Widget>[
             CircularStepProgressIndicator(

@@ -126,7 +126,7 @@ class ScrollContainerSize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         child: SizedBox(
           height: 300,
@@ -134,7 +134,7 @@ class ScrollContainerSize extends StatelessWidget {
             scrollDirection: Axis.vertical,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Box(height: 500),
               ],
             ),
@@ -150,11 +150,11 @@ class FixedContainerSize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Box(height: 100),
             Box(height: 200),
             Box(height: 300),

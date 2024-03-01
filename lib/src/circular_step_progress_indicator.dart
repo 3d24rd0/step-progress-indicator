@@ -1,5 +1,7 @@
 library circular_step_progress_indicator;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -12,6 +14,42 @@ import 'dart:math' as math;
 /// Check out the official tutorial on
 /// https://www.sandromaglione.com/blog
 class CircularStepProgressIndicator extends StatelessWidget {
+  const CircularStepProgressIndicator({
+    required this.totalSteps,
+    this.child,
+    this.height,
+    this.width,
+    this.customColor,
+    this.customStepSize,
+    this.selectedStepSize,
+    this.unselectedStepSize,
+    this.roundedCap,
+    this.gradientColor,
+    this.circularDirection = CircularDirection.clockwise,
+    this.fallbackHeight = 100.0,
+    this.fallbackWidth = 100.0,
+    this.currentStep = 0,
+    this.selectedColor = Colors.blue,
+    this.unselectedColor = Colors.grey,
+    this.padding = math.pi / 20,
+    this.stepSize = 6.0,
+    this.startingAngle = 0,
+    this.arcSize = math.pi * 2,
+    this.removeRoundedCapExtraAngle = false,
+    super.key,
+  })  : assert(
+          totalSteps > 0,
+          "Number of total steps (totalSteps) of the CircularStepProgressIndicator must be greater than 0",
+        ),
+        assert(
+          currentStep >= 0,
+          "Current step (currentStep) of the CircularStepProgressIndicator must be greater than or equal to 0",
+        ),
+        assert(
+          padding >= 0.0,
+          "Padding (padding) of the CircularStepProgressIndicator must be greater or equal to 0",
+        );
+
   /// Defines if steps grow from
   /// clockwise [CircularDirection.clockwise] or
   /// counterclockwise [CircularDirection.counterclockwise]
@@ -150,59 +188,28 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// Removes the extra angle caused by [StrokeCap.round] when [roundedCap] is applied
   final bool removeRoundedCapExtraAngle;
 
-  const CircularStepProgressIndicator({
-    required this.totalSteps,
-    this.child,
-    this.height,
-    this.width,
-    this.customColor,
-    this.customStepSize,
-    this.selectedStepSize,
-    this.unselectedStepSize,
-    this.roundedCap,
-    this.gradientColor,
-    this.circularDirection = CircularDirection.clockwise,
-    this.fallbackHeight = 100.0,
-    this.fallbackWidth = 100.0,
-    this.currentStep = 0,
-    this.selectedColor = Colors.blue,
-    this.unselectedColor = Colors.grey,
-    this.padding = math.pi / 20,
-    this.stepSize = 6.0,
-    this.startingAngle = 0,
-    this.arcSize = math.pi * 2,
-    this.removeRoundedCapExtraAngle = false,
-    Key? key,
-  })  : assert(totalSteps > 0,
-            "Number of total steps (totalSteps) of the CircularStepProgressIndicator must be greater than 0"),
-        assert(currentStep >= 0,
-            "Current step (currentStep) of the CircularStepProgressIndicator must be greater than or equal to 0"),
-        assert(padding >= 0.0,
-            "Padding (padding) of the CircularStepProgressIndicator must be greater or equal to 0"),
-        super(key: key);
-
   @override
   Widget build(BuildContext context) {
     // Print warning when arcSize greater than math.pi * 2 which causes steps to overlap
-    if (arcSize > math.pi * 2)
-      print(
-          "WARNING (step_progress_indicator): arcSize of CircularStepProgressIndicator is greater than 360° (math.pi * 2), this will cause some steps to overlap!");
+    if (arcSize > math.pi * 2) {
+      log(
+        "WARNING (step_progress_indicator): arcSize of CircularStepProgressIndicator is greater than 360° (math.pi * 2), this will cause some steps to overlap!",
+      );
+    }
     final TextDirection textDirection = Directionality.of(context);
 
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(
         // Apply fallback for both height and width
         // if their value is null and no parent size limit
-        height: height != null
-            ? height
-            : constraints.maxHeight != double.infinity
+        height: height ??
+            (constraints.maxHeight != double.infinity
                 ? constraints.maxHeight
-                : fallbackHeight,
-        width: width != null
-            ? width
-            : constraints.maxWidth != double.infinity
+                : fallbackHeight),
+        width: width ??
+            (constraints.maxWidth != double.infinity
                 ? constraints.maxWidth
-                : fallbackWidth,
+                : fallbackWidth),
         child: CustomPaint(
           painter: _CircularIndicatorPainter(
             totalSteps: totalSteps,
@@ -239,7 +246,9 @@ class CircularStepProgressIndicator extends StatelessWidget {
   double get maxDefinedSize {
     if (customStepSize == null) {
       return math.max(
-          stepSize, math.max(selectedStepSize ?? 0, unselectedStepSize ?? 0));
+        stepSize,
+        math.max(selectedStepSize ?? 0, unselectedStepSize ?? 0),
+      );
     }
 
     // When customSize defined, compute and return max possible size
@@ -262,25 +271,6 @@ class CircularStepProgressIndicator extends StatelessWidget {
 }
 
 class _CircularIndicatorPainter implements CustomPainter {
-  final int totalSteps;
-  final int currentStep;
-  final double padding;
-  final Color? selectedColor;
-  final Color? unselectedColor;
-  final double stepSize;
-  final double? selectedStepSize;
-  final double? unselectedStepSize;
-  final double Function(int, bool)? customStepSize;
-  final double maxDefinedSize;
-  final Color Function(int)? customColor;
-  final CircularDirection circularDirection;
-  final double startingAngle;
-  final double arcSize;
-  final bool Function(int, bool)? roundedCap;
-  final Gradient? gradientColor;
-  final TextDirection textDirection;
-  final bool removeRoundedCapExtraAngle;
-
   _CircularIndicatorPainter({
     required this.totalSteps,
     required this.circularDirection,
@@ -301,6 +291,24 @@ class _CircularIndicatorPainter implements CustomPainter {
     required this.textDirection,
     required this.removeRoundedCapExtraAngle,
   });
+  final int totalSteps;
+  final int currentStep;
+  final double padding;
+  final Color? selectedColor;
+  final Color? unselectedColor;
+  final double stepSize;
+  final double? selectedStepSize;
+  final double? unselectedStepSize;
+  final double Function(int, bool)? customStepSize;
+  final double maxDefinedSize;
+  final Color Function(int)? customColor;
+  final CircularDirection circularDirection;
+  final double startingAngle;
+  final double arcSize;
+  final bool Function(int, bool)? roundedCap;
+  final Gradient? gradientColor;
+  final TextDirection textDirection;
+  final bool removeRoundedCapExtraAngle;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -344,8 +352,13 @@ class _CircularIndicatorPainter implements CustomPainter {
   }
 
   /// Draw a series of arcs, each composing the full steps of the indicator
-  void _drawStepArc(Canvas canvas, Paint paint, Rect rect, bool isClockwise,
-      double stepLength) {
+  void _drawStepArc(
+    Canvas canvas,
+    Paint paint,
+    Rect rect,
+    bool isClockwise,
+    double stepLength,
+  ) {
     // Draw a series of circular arcs to compose the indicator
     // Starting based on startingAngle attribute
     //
@@ -377,9 +390,9 @@ class _CircularIndicatorPainter implements CustomPainter {
               : unselectedColor!;
 
       // Apply stroke cap to each step
-      final hasStrokeCap = roundedCap != null
-          ? roundedCap!(_indexOfStep(step, isClockwise), isSelectedColor)
-          : false;
+      final hasStrokeCap =
+          roundedCap?.call(_indexOfStep(step, isClockwise), isSelectedColor) ??
+              false;
       final strokeCap = hasStrokeCap ? StrokeCap.round : StrokeCap.butt;
 
       // Remove extra size caused by rounded stroke cap
@@ -405,7 +418,11 @@ class _CircularIndicatorPainter implements CustomPainter {
 
   /// Draw optimized continuous indicator instead of multiple steps
   void _drawContinuousArc(
-      Canvas canvas, Paint paint, Rect rect, bool isClockwise) {
+    Canvas canvas,
+    Paint paint,
+    Rect rect,
+    bool isClockwise,
+  ) {
     // Compute color of the selected and unselected bars
     final firstStepColor = isClockwise ? selectedColor : unselectedColor;
     final secondStepColor = !isClockwise ? selectedColor : unselectedColor;
@@ -428,16 +445,12 @@ class _CircularIndicatorPainter implements CustomPainter {
     // Apply stroke cap to both arcs
     // NOTE: For continuous circular indicator, it uses 0 and 1 as index to
     // apply the rounded cap
-    final firstArcStrokeCap = roundedCap != null
-        ? isClockwise
-            ? roundedCap!(0, true)
-            : roundedCap!(1, false)
-        : false;
-    final secondArcStrokeCap = roundedCap != null
-        ? isClockwise
-            ? roundedCap!(1, false)
-            : roundedCap!(0, true)
-        : false;
+    final firstArcStrokeCap = isClockwise
+        ? roundedCap?.call(0, true) ?? false
+        : roundedCap?.call(1, false) ?? false;
+    final secondArcStrokeCap = isClockwise
+        ? roundedCap?.call(1, false) ?? false
+        : roundedCap?.call(0, true) ?? false;
     final firstCap = firstArcStrokeCap ? StrokeCap.round : StrokeCap.butt;
     final secondCap = secondArcStrokeCap ? StrokeCap.round : StrokeCap.butt;
 
@@ -531,13 +544,13 @@ class _CircularIndicatorPainter implements CustomPainter {
   bool hitTest(Offset position) => false;
 
   @override
-  void addListener(listener) {}
+  void addListener(VoidCallback listener) {}
 
   @override
-  void removeListener(listener) {}
+  void removeListener(VoidCallback listener) {}
 
   @override
-  get semanticsBuilder => null;
+  Null get semanticsBuilder => null;
 
   @override
   bool shouldRebuildSemantics(CustomPainter oldDelegate) => false;

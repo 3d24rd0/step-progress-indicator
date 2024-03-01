@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class CircularAnimation1 extends StatefulWidget {
+  const CircularAnimation1({super.key});
+
   @override
-  _CircularAnimation1State createState() => _CircularAnimation1State();
+  State<StatefulWidget> createState() => _CircularAnimation1State();
 }
 
 class _CircularAnimation1State extends State<CircularAnimation1>
@@ -38,8 +40,8 @@ class _CircularAnimation1State extends State<CircularAnimation1>
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 24.0,
-          vertical: 24.0,
+          horizontal: 24,
+          vertical: 24,
         ),
         child: SizedBox(
           width: double.infinity,
@@ -59,15 +61,15 @@ class _CircularAnimation1State extends State<CircularAnimation1>
                       width: 200,
                       height: 200,
                       padding: 0,
-                      selectedStepSize: 10.0,
+                      selectedStepSize: 10,
                     ),
                   ],
                 ),
               ),
-              Text(
+              const Text(
                 'https//www.sandromaglione.com',
                 style: TextStyle(
-                  fontSize: 15.0,
+                  fontSize: 15,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.2,
                   color: Colors.black87,

@@ -58,7 +58,7 @@ dependencies:
 
 ## Examples
 
-#### StepProgressIndicator - Example 1
+### StepProgressIndicator - Example 1
 
 ![Step Progress Indicator - Example 1](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example1.png)
 
