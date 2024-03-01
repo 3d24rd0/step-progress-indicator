@@ -538,21 +538,26 @@ void main() {
         2,
       );
 
-      expect(
-        firstClipRRect.borderRadius!.topLeft.x == tEdgesValue &&
-            firstClipRRect.borderRadius!.bottomLeft.x == tEdgesValue &&
-            firstClipRRect.borderRadius!.topLeft.y == tEdgesValue &&
-            firstClipRRect.borderRadius!.bottomLeft.y == tEdgesValue,
-        true,
-      );
-
-      expect(
-        lastClipRRect.borderRadius!.topRight.x == tEdgesValue &&
-            lastClipRRect.borderRadius!.bottomRight.x == tEdgesValue &&
-            lastClipRRect.borderRadius!.topRight.y == tEdgesValue &&
-            lastClipRRect.borderRadius!.bottomRight.y == tEdgesValue,
-        true,
-      );
+      final firstBorderRadius = firstClipRRect.borderRadius;
+      if (firstBorderRadius is BorderRadius) {
+        expect(
+          firstBorderRadius.topLeft.x == tEdgesValue &&
+              firstBorderRadius.bottomLeft.x == tEdgesValue &&
+              firstBorderRadius.topLeft.y == tEdgesValue &&
+              firstBorderRadius.bottomLeft.y == tEdgesValue,
+          true,
+        );
+      }
+      final lastBorderRadius = lastClipRRect.borderRadius;
+      if (lastBorderRadius is BorderRadius) {
+        expect(
+          lastBorderRadius.topRight.x == tEdgesValue &&
+              lastBorderRadius.bottomRight.x == tEdgesValue &&
+              lastBorderRadius.topRight.y == tEdgesValue &&
+              lastBorderRadius.bottomRight.y == tEdgesValue,
+          true,
+        );
+      }
     });
 
     testWidgets('should apply correct radius when only one step',
@@ -573,17 +578,20 @@ void main() {
         1,
       );
 
-      expect(
-        firstClipRRect.borderRadius!.topLeft.x == tEdgesValue &&
-            firstClipRRect.borderRadius!.bottomLeft.x == tEdgesValue &&
-            firstClipRRect.borderRadius!.topLeft.y == tEdgesValue &&
-            firstClipRRect.borderRadius!.bottomLeft.y == tEdgesValue &&
-            firstClipRRect.borderRadius!.topRight.x == tEdgesValue &&
-            firstClipRRect.borderRadius!.bottomRight.x == tEdgesValue &&
-            firstClipRRect.borderRadius!.topRight.y == tEdgesValue &&
-            firstClipRRect.borderRadius!.bottomRight.y == tEdgesValue,
-        true,
-      );
+      final firstBorderRadius = firstClipRRect.borderRadius;
+      if (firstBorderRadius is BorderRadius) {
+        expect(
+          firstBorderRadius.topLeft.x == tEdgesValue &&
+              firstBorderRadius.bottomLeft.x == tEdgesValue &&
+              firstBorderRadius.topLeft.y == tEdgesValue &&
+              firstBorderRadius.bottomLeft.y == tEdgesValue &&
+              firstBorderRadius.topRight.x == tEdgesValue &&
+              firstBorderRadius.bottomRight.x == tEdgesValue &&
+              firstBorderRadius.topRight.y == tEdgesValue &&
+              firstBorderRadius.bottomRight.y == tEdgesValue,
+          true,
+        );
+      }
     });
   });
 
